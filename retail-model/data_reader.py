@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 
-def prepare_data(data):
+def load_data(data):
     df = pd.read_csv(data)
     df["family_code"] = df["family"].astype('category').cat.codes
     encoded_df = df.drop(['family', 'date'], axis=1)
