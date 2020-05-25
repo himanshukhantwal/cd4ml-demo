@@ -1,3 +1,5 @@
 .idea/
 .venv/
 cd4ml-demo.iml
+mlruns/
+retail-model/__pycache__/
