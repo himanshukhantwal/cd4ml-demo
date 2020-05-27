@@ -3,3 +3,4 @@
 cd4ml-demo.iml
 mlruns
 retail-model/__pycache__
+data

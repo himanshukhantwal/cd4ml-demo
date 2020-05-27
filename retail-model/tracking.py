@@ -1,22 +1,21 @@
-import os
-
 import mlflow
 import mlflow.sklearn
 
-MLFLOW_TRACKING_URL = os.getenv('MLFLOW_TRACKING_URL')
-EXPERIMENT_NAME = os.getenv('TENANT', 'local')
-RUN_LABEL = os.getenv('BUILD_NUMBER', '0')
-USE_MLFLOW_REMOTE_SERVER = MLFLOW_TRACKING_URL is not None
-
 
 class TrackML:
-    def __enter__(self):
-        if USE_MLFLOW_REMOTE_SERVER:
-            mlflow.set_tracking_uri(uri=MLFLOW_TRACKING_URL)
-        mlflow.set_experiment(EXPERIMENT_NAME)
-        mlflow.start_run(run_name=RUN_LABEL)
+    def __init__(self, mlflow_tracking_url, experiment_name, build_number):
+        self.mlflow_tracking_url = mlflow_tracking_url
+        self.experiment_name = experiment_name
+        self.build_number = build_number
+        self.use_mlflow_remote_server = mlflow_tracking_url is not None
 
-        print("MLFLOW_TRACKING_URL: ", MLFLOW_TRACKING_URL)
+    def __enter__(self):
+        if self.use_mlflow_remote_server:
+            mlflow.set_tracking_uri(uri=self.mlflow_tracking_url)
+        mlflow.set_experiment(self.experiment_name)
+        mlflow.start_run(run_name=self.build_number)
+
+        print("MLFLOW_TRACKING_URL: ", self.mlflow_tracking_url)
         self.artifact_uri = mlflow.get_artifact_uri()
         print('artifact_uri: ', self.artifact_uri)
 
