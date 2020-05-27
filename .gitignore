@@ -3,5 +3,6 @@
 cd4ml-demo.iml
 mlruns
 retail-model/__pycache__
+prepare-data/__pycache__
 data
 /jenkins/jenkins-admin-password.txt
